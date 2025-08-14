@@ -1,7 +1,13 @@
 <template>
-  <div :class="['flex flex-col gap-2 p-4 rounded-md', bgColorClass]">
+  <div
+    :class="['flex flex-col gap-2 p-4 rounded-md', bgColorClass]"
+  >
     <div class="space-y-2">
-      <component :is="stat.icon" size="36px" :class="textColorClass" />
+      <component
+        :is="stat.icon"
+        size="36px"
+        :class="textColorClass"
+      />
       <span class="font-medium text-gray-600">{{ stat.label }}</span>
     </div>
     <h3 class="font-bold text-3xl text-end">
@@ -14,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, PropType } from 'vue';
+import { defineComponent, PropType } from 'vue';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { RiErrorWarningLine } from '@remixicon/vue';
 
@@ -42,10 +48,21 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const bgColorClass = computed(() => `bg-${props.stat.color}/20`);
-    const textColorClass = computed(() => `text-${props.stat.color}`);
+    const colorClasses = {
+      primary: { bg: 'bg-primary/20', text: 'text-primary' },
+      secondary: { bg: 'bg-secondary/20', text: 'text-secondary' },
+      skyblue: { bg: 'bg-skyblue/20', text: 'text-skyblue' },
+      lightpink: { bg: 'bg-lightpink/20', text: 'text-lightpink' },
+      gradient: { bg: 'bg-gradient', text: 'text-white' },
+    };
 
-    return { bgColorClass, textColorClass };
+    // eslint-disable-next-line max-len
+    const classes = colorClasses[props.stat.color as keyof typeof colorClasses] || colorClasses.primary;
+
+    return {
+      bgColorClass: classes.bg,
+      textColorClass: classes.text,
+    };
   },
 });
 </script>

@@ -1,11 +1,48 @@
 import { ActionContext } from 'vuex';
 import { AuthState, RootState } from '../types';
 
+const AUTH_KEY = 'auth_data';
+const AUTH_EXPIRY_HOURS = 24;
+
+const saveAuthToStorage = (user: { email: string }) => {
+  const authData = {
+    user,
+    isAuthenticated: true,
+    expiresAt: Date.now() + (AUTH_EXPIRY_HOURS * 60 * 60 * 1000),
+  };
+  localStorage.setItem(AUTH_KEY, JSON.stringify(authData));
+};
+
+const getAuthFromStorage = (): { user: { email: string } | null, isAuthenticated: boolean } => {
+  try {
+    const authData = localStorage.getItem(AUTH_KEY);
+    if (!authData) return { user: null, isAuthenticated: false };
+
+    const parsed = JSON.parse(authData);
+
+    if (Date.now() > parsed.expiresAt) {
+      localStorage.removeItem(AUTH_KEY);
+      return { user: null, isAuthenticated: false };
+    }
+
+    return { user: parsed.user, isAuthenticated: parsed.isAuthenticated };
+  } catch {
+    localStorage.removeItem(AUTH_KEY);
+    return { user: null, isAuthenticated: false };
+  }
+};
+
+const removeAuthFromStorage = () => {
+  localStorage.removeItem(AUTH_KEY);
+};
+
+const storedAuth = getAuthFromStorage();
+
 const authState: AuthState = {
-  isAuthenticated: false,
+  isAuthenticated: storedAuth.isAuthenticated,
   message: null,
   error: null,
-  user: null,
+  user: storedAuth.user,
 };
 
 const mutations = {
@@ -13,6 +50,8 @@ const mutations = {
     state.isAuthenticated = true;
     state.message = 'Success signing in';
     state.user = payload;
+    state.error = null;
+    saveAuthToStorage(payload);
   },
   SET_ERROR(state: AuthState, payload: { message: string }) {
     state.error = payload.message;
@@ -20,6 +59,14 @@ const mutations = {
   LOGOUT(state: AuthState) {
     state.isAuthenticated = false;
     state.user = null;
+    state.message = null;
+    state.error = null;
+    removeAuthFromStorage();
+  },
+  CHECK_AUTH(state: AuthState) {
+    const tempStoredAuth = getAuthFromStorage();
+    state.isAuthenticated = tempStoredAuth.isAuthenticated;
+    state.user = tempStoredAuth.user;
   },
 };
 
@@ -43,11 +90,15 @@ const actions = {
 
     return true;
   },
+  checkAuth({ commit }: ActionContext<AuthState, RootState>) {
+    commit('CHECK_AUTH');
+  },
 };
 
 const getters = {
   getUser: (state: AuthState) => state.user,
   getError: (state: AuthState) => state.error,
+  isAuthenticated: (state: AuthState) => state.isAuthenticated,
 };
 
 export default {

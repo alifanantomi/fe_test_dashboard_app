@@ -54,7 +54,7 @@
           </td>
 
           <td class="py-3">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-4">
               <button
                 type="button"
                 class="text-primary cursor-pointer"

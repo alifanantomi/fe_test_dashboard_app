@@ -26,7 +26,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/dashboard/student',
+    path: '/dashboard/students',
     name: 'DashboardStudent',
     component: StudentView,
     meta: { requiresAuth: true },
@@ -44,7 +44,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { requiresAuth: true },
   },
   {
-    path: '/dashboard/setting',
+    path: '/dashboard/settings',
     name: 'DashboardSetting',
     component: SettingView,
     meta: { requiresAuth: true },
@@ -62,7 +62,9 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
+  await store.dispatch('auth/checkAuth');
+
   const { isAuthenticated } = store.state.auth;
 
   if (to.meta.requiresAuth && !isAuthenticated) {

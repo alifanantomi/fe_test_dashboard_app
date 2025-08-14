@@ -1,12 +1,12 @@
 <!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
-  <div class="flex h-screen items-center justify-center bg-primary">
-    <div class="w-lg flex flex-col gap-8 items-center bg-white p-8 rounded-2xl shadow-lg">
+  <div class="flex h-screen items-center justify-center bg-gradient">
+    <div class="w-lg flex flex-col gap-8 items-center bg-white p-10 rounded-2xl shadow-lg">
       <div class="w-fit px-4 border-l-6 border-secondary">
         <h1 class="text-4xl font-bold">CRUD OPERATIONS</h1>
       </div>
 
-      <div class="grid gap-2">
+      <div class="grid gap-1">
         <h3 class="text-2xl font-semibold text-center">SIGN IN</h3>
         <p class="text-gray-400 text-center">Enter your credentials to access your account</p>
       </div>
@@ -49,7 +49,7 @@
 
         <p class="text-center">
           Forgot your password?
-          <RouterLink to="/" class="text-primary">Reset Password</RouterLink>
+          <RouterLink to="/" class="text-primary underline">Reset Password</RouterLink>
         </p>
       </form>
     </div>
@@ -63,6 +63,7 @@ import { RouterLink, useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'LoginView',
+  components: { RouterLink },
   setup() {
     const router = useRouter();
 
