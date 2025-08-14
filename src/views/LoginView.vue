@@ -1,8 +1,8 @@
 <!-- eslint-disable vuejs-accessibility/label-has-for -->
 <template>
-  <div class="flex h-screen items-center justify-center bg-[#FFAF00]">
+  <div class="flex h-screen items-center justify-center bg-primary">
     <div class="w-lg flex flex-col gap-8 items-center bg-white p-8 rounded-2xl shadow-lg">
-      <div class="w-fit px-4 border-l-6 border-[#F8D442]">
+      <div class="w-fit px-4 border-l-6 border-secondary">
         <h1 class="text-4xl font-bold">CRUD OPERATIONS</h1>
       </div>
 
@@ -41,7 +41,7 @@
         </div>
 
         <button
-          class="bg-[#FFAF00] text-white w-full py-3 rounded-md cursor-pointer"
+          class="bg-primary text-white w-full py-3 rounded-md cursor-pointer"
           type="submit"
         >
           SIGN IN
@@ -49,7 +49,7 @@
 
         <p class="text-center">
           Forgot your password?
-          <RouterLink to="/" class="text-[#FFAF00]">Reset Password</RouterLink>
+          <RouterLink to="/" class="text-primary">Reset Password</RouterLink>
         </p>
       </form>
     </div>

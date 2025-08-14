@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@remixicon/vue':
+        specifier: ^4.6.0
+        version: 4.6.0(vue@3.5.18(typescript@4.5.5))
       '@tailwindcss/cli':
         specifier: ^4.1.11
         version: 4.1.11
@@ -796,6 +799,11 @@ packages:
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
+
+  '@remixicon/vue@4.6.0':
+    resolution: {integrity: sha512-OKDNBHM4gPbXZkYpKMu6xxLIP8LaioQQ7ipC10IfY4Wh5cmhrtA3aQIWgeCWGToRn1XoYoKAD8K95jUmE24hLQ==}
+    peerDependencies:
+      vue: '>= 3'
 
   '@rtsao/scc@1.1.0':
     resolution: {integrity: sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==}
@@ -5575,6 +5583,10 @@ snapshots:
       '@parcel/watcher-win32-x64': 2.5.1
 
   '@polka/url@1.0.0-next.29': {}
+
+  '@remixicon/vue@4.6.0(vue@3.5.18(typescript@4.5.5))':
+    dependencies:
+      vue: 3.5.18(typescript@4.5.5)
 
   '@rtsao/scc@1.1.0': {}
 

@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #FFAF00;
+  --color-secondary: #F8D442;
+  --color-gradient: linear-gradient(90deg, #FFAF00 0%, #F8D442 100%);
+  --color-skyblue: #87C9EF;
+  --color-lightpink: #F2ADD2;
+  --color-foreground: #222222;
+  --color-background: #FFFFFF;
+  --color-muted-foreground: #E9E9E9;
+  --color-sidebar: #F2E9E0;
+  --color-sidebar-foreground: #222222;
+}

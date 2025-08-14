@@ -2,6 +2,11 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import DashboardView from '@/views/DashboardView.vue';
 import LoginView from '@/views/LoginView.vue';
 import store from '@/store';
+import CourseView from '@/views/CourseView.vue';
+import StudentView from '@/views/StudentView.vue';
+import PaymentView from '@/views/PaymentView.vue';
+import ReportView from '@/views/ReportView.vue';
+import SettingView from '@/views/SettingsView.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,6 +17,36 @@ const routes: Array<RouteRecordRaw> = [
     path: '/dashboard',
     name: 'Dashboard',
     component: DashboardView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/dashboard/course',
+    name: 'DashboardCourse',
+    component: CourseView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/dashboard/student',
+    name: 'DashboardStudent',
+    component: StudentView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/dashboard/payment',
+    name: 'DashboardPayment',
+    component: PaymentView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/dashboard/report',
+    name: 'DashboardReport',
+    component: ReportView,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/dashboard/setting',
+    name: 'DashboardSetting',
+    component: SettingView,
     meta: { requiresAuth: true },
   },
   {
@@ -29,8 +64,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const { isAuthenticated } = store.state.auth;
-
-  console.log(to.name);
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     next('/login');
