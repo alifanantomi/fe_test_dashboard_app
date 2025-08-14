@@ -30,6 +30,8 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const { isAuthenticated } = store.state.auth;
 
+  console.log(to.name);
+
   if (to.meta.requiresAuth && !isAuthenticated) {
     next('/login');
   } else if (to.name === 'Login' && isAuthenticated) {
