@@ -1,0 +1,47 @@
+Jawaban Pertanyaan Pendukung
+
+Bagaimana Vuex membantu dalam mengelola state aplikasi ini?
+Vuex berfungsi sebagai single source of truth untuk state pada aplikasi ini. Dalam proyek ini, semua data terkait autentikasi disimpan di satu tempat pada store/modules/auth.ts yang akan diinisiasi ke index pada store/index.ts.
+
+State hnaya bisa diubah melalui mutations yang didefinisikan:
+- LOGIN: mengubah status menjadi authenticated
+- LOGOUT: menghapus data user dan mengugbah status menjadi unauthenticated
+- SET_ERROR: menampilkan pesan error
+- CHECK_AUTH: memverifikasi status authentikasi dari localstorage
+
+
+Apa yang Anda lakukan untuk mencegah akses ke Dashboard tanpa login?
+Untuk mencegah akses ke dashboard tanpa login, proyek ini menerapkan beberapa layer proteksi:
+
+- setiap route dashboard diberi meta requiresAuth: true, ini terdapat pada file routes/index.ts yang menandakan route tersebut membutuhkan autentiksi.
+- router beforeEach guard yang berguna sebagai pengecekan setiap pada navigasi. 
+
+Pertama, pada kode tersebut dilakukan pengecakan dari localstorage yang akan otomatis mengatur expiry. 
+
+Lalu, dilakukan pengecekan jika route membutuhkan autentikasi dan state belum terautentikasi maka akan di arahkan ke halaman login. 
+
+Jika user mengarah ke route login tetapi state sudah terautentikasi maka akan mengarahkan ke halaman dashboard. 
+
+Terakhir, jika user sudah terautentikasi dan mengarah ke route yang membutuhkan autentikasi maka akan route akan melanjutkan navigasi normal.
+
+
+
+Komponen apa saja yang dibuat reusable dan apa alasannya?
+- DashboardHeader: digunakan di setiam halman dalam area dashboard, dengan menjadikannya reusable maka perubahan desain atau fitur dapat dilakukan di satu tempat. Juga berpengaruh pada kebersihan kode karena heder dipasang pada dashboard layout.
+
+- DashboardSidebar: sama seperti header, bersifat tetap di seluruh halman dashboard, sehingga dibuat reusable dan memudahkan untuk maintenance. Juga berpengaruh pada kebersihan kode karena sidebar dipasang pada dashboard layot
+
+- StatCard: karena struktur dari card statistic pada dashboard sama, hanya data yang berbeda, maka lebih efektif jika kita menjadikannya component yang nantinya dengan props bisa digunakan untuk berbagai jenis statistic tanpa membuat komponen baru.
+
+- student table: menampilkan daftar siswa, dan dapat digunakan Kembali untuk berbagai nejis data lainnya, hanya dengan mengubah data yang di-passing.
+
+
+Lifecycle hook apa yang digunakan dan untuk keperluan apa?
+Proyek ini menggunakan lifecycle hook mounted() pada App.vue untuk keperluan autentikasi,yang mana jika kita menggunakan mounted() lifecycle ini akan dipanggil setelah komponen di mount ke DOM, memastikan vue instance sudah sepenuhnya terinisialisasi.
+
+
+Jika aplikasi ini akan dideploy ke production, langkah build apa yang dilakukan?
+- install dependency dengan menjalankan perintah pnpm install / npm install
+- lalu jalankan perintah pnpm build / npm run build untuk membuat direktori 'dist' yang berisi file-file yang siap untuk production.
+- terakhir upload isi folder dist/ ke server pilihan.
+- khusus untuk platform seperti netlify dan vercel, kita hanya butuh untuk menyambungkan git repository kita ke platform tersebut dan karena kita tidak memiliki konfigurasi environtment (data statis), maka aplikasi akan berjalan secara statis.
